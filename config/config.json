@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "20CS30061",
+    "database": "testing",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "logging": false
+  },
+  "test": {
+    "username": "postgres",
+    "password": "20CS30061",
+    "database": "testing",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "logging": false
+  },
+  "production": {
+    "username": "postgres",
+    "password": "20CS30061",
+    "database": "testing",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "logging": false
+  }
+}
