@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const OauthController = require('../controllers/oauthcontroller');
 const OAuthServer = require('express-oauth-server');
-
+const Sequelize = require('sequelize');
+const OAuthTokensModel = require('../models').OAuthTokens;
+const op = Sequelize.Op;
 router.oauth = new OAuthServer({
     model: OauthController,
-    accessTokenLifetime: 4 * 60 * 60 /* 4 hours of access time */
+    accessTokenLifetime: 4*60*60 /* 4 hours of access time */
 });
 
 /* GET home page. */
@@ -35,4 +37,20 @@ router.get('/secret', router.oauth.authenticate(), function (req, res) {
     res.json("User exists");
 });
 
+router.get('/check', (req, res) => {
+    const date = new Date();
+    return OAuthTokensModel.findOne({where: {accessToken: req.body.tokens}, accessTokenExpiresAt : {[op.gt]: date}})
+        .then((tok) => {
+            res.json({userid: tok.get().userId});
+        })
+        .catch((e) => {
+            OAuthTokensModel.findOne({where: {accessToken: req.body.tokens}})
+            .then((tok) => {
+                tok.destroy().then(()=>res.status(404).json({error: "Access token expired"}));
+            })
+            .catch((e) => {
+                res.status(404).json({error: "Invalid Token"});
+            })
+        });
+})
 module.exports = router;
