@@ -27,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     refreshToken: DataTypes.STRING,
     refreshTokenExpiresAt: DataTypes.DATE,
     clientId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    userGrants: DataTypes.ARRAY(DataTypes.STRING)
   }, {
     sequelize,
     modelName: 'OAuthTokens',

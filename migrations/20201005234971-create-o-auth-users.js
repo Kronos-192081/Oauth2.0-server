@@ -17,6 +17,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      grants: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

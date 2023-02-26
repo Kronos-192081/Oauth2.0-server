@@ -39,9 +39,9 @@ router.get('/secret', router.oauth.authenticate(), function (req, res) {
 
 router.get('/check', (req, res) => {
     const date = new Date();
-    return OAuthTokensModel.findOne({where: {accessToken: req.body.tokens}, accessTokenExpiresAt : {[op.gt]: date}})
+    return OAuthTokensModel.findOne({where: {accessToken: req.body.tokens.slice(7)}, accessTokenExpiresAt : {[op.gt]: date}})
         .then((tok) => {
-            res.json({userid: tok.get().userId});
+            res.json({userid: tok.get().userId , userGrants: tok.get().userGrants});
         })
         .catch((e) => {
             OAuthTokensModel.findOne({where: {accessToken: req.body.tokens}})

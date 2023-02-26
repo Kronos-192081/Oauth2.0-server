@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   OAuthUsers.init({
     username: DataTypes.STRING,
     password: DataTypes.STRING,
+    grants: DataTypes.ARRAY(DataTypes.STRING),
     name: DataTypes.STRING
   }, {
     sequelize,

@@ -26,6 +26,9 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
+      userGrants: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -82,7 +82,8 @@ module.exports.saveToken = function (token, client, user) {
                 clientId: client.id,
                 refreshToken: token.refreshToken,
                 refreshTokenExpiresAt: token.refreshTokenExpiresAt,
-                userId: user.id
+                userId: user.id,
+                userGrants: user.grants
             }
         )
         .then((token) => {
@@ -90,7 +91,6 @@ module.exports.saveToken = function (token, client, user) {
             for (const prop in token.get()) data[prop] = token[prop];
             data.client = data.clientId;
             data.user = data.userId;
-
             return data;
         })
         .catch((error) => console.error(error));
@@ -135,7 +135,8 @@ module.exports.setUser = function (user) {
         .create({
             username: user.username,
             password: user.password,
-            name: user.name
+            name: user.name,
+            grants: user.grants
         })
         .then((userResult) => {
             userResult = userResult && typeof userResult == 'object' ? userResult.toJSON() : userResult;
@@ -143,7 +144,6 @@ module.exports.setUser = function (user) {
             for (const prop in userResult) data[prop] = userResult[prop];
             data.username = data.username;
             data.name = data.name;
-
             return data;
         })
         .catch((error) => console.error(error));
